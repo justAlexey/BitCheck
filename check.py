@@ -24,9 +24,6 @@ def check_balance_btc():
         data = generate_addresses(10)
         ua = UserAgent()
         addresses = "|".join(data.keys())
-        headers = {
-            "User-Agent": ua.random
-        }
         status_code = 0
         url = f"https://blockchain.info/multiaddr?active={addresses}"
         response = None
@@ -35,6 +32,9 @@ def check_balance_btc():
                 proxies.download_proxy_list()
             took_proxy = random.choice(proxies.proxy_list)
             proxy = {"http": took_proxy}
+            headers = {
+                "User-Agent": ua.random
+            }
             response = requests.get(url, headers, proxies=proxy)
             if response.status_code == 200:
                 status_code = 200
