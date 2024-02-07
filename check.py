@@ -61,10 +61,13 @@ def check_balance_btc():
             else:
                 with open("results/errors.txt", "a") as f:
                     f.write(
-                        f"error while trying to check wallets, status code = {response.status_code}, proxy = {took_proxy}\n{response.request}\n"
+                        f"error while trying to check wallets, status code = {response.status_code}, proxy = {took_proxy}\n"
                     )
                 proxies.proxy_list.remove(took_proxy)
-        sleep(0.5)
+            if not len(proxies.proxy_list) and response.status_code == (429 or 1015):
+                print("go to sleep")
+                sleep(1800)
+        sleep(random.randint(500, 5000) / 1000)
         extract = []
         for address in response["addresses"]:
             # add all data into a list

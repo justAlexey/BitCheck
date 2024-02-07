@@ -6,7 +6,6 @@ import os
 from colorama import init
 from time import sleep
 
-import proxies
 init()
 
 parser = argparse.ArgumentParser()
@@ -15,7 +14,7 @@ parser.add_argument(
 	"--threads",
 	help="amount of threads (default: 50)",
 	type=int,
-	default=8,
+	default=50,
 )
 parser.add_argument(
 	"-s",
@@ -60,7 +59,7 @@ def makeDir():
 def main():
 	with lock:
 		cycles = 0
-		while cycles<1000:
+		while True:
 			try:
 				wallets = check_balance_btc()
 				for wallet in wallets:
