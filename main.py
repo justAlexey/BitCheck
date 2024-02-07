@@ -15,7 +15,7 @@ parser.add_argument(
 	"--threads",
 	help="amount of threads (default: 50)",
 	type=int,
-	default=8,
+	default=2,
 )
 parser.add_argument(
 	"-s",
@@ -101,7 +101,6 @@ def main():
 
 if __name__ == "__main__":
 	makeDir()
-	proxies.download_proxy_list()
 	threads = args.threads
 	i = 0
 	for _ in range(threads):
