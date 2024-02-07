@@ -41,7 +41,7 @@ def check_balance_btc():
                 response = response.json()
             else:
                 proxies.proxy_list.remove(took_proxy)
-        sleep(0.1)
+        sleep(0.5)
         extract = []
         for address in response["addresses"]:
             # add all data into a list
