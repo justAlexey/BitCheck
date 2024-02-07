@@ -52,7 +52,7 @@ def makeDir():
 def main():
 	with lock:
 		cycles = 0
-		while cycles < 1:
+		while True:
 			try:
 				wallets = check_balance_btc()
 				for wallet in wallets:
