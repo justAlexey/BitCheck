@@ -92,8 +92,8 @@ def main():
 								flush=True,
 							)
 						sleep(0.01)
-			except (TypeError, AttributeError):
-				print("You are rate-limited please switch to a vpn/proxy or you dont have connection")
+			except (TypeError, AttributeError) as e:
+				print(f"You are rate-limited please switch to a vpn/proxy or you dont have connection\nError - {e}")
 				pass
 			finally:
 				cycles += 1
