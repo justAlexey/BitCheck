@@ -42,7 +42,7 @@ def check_balance_btc():
             else:
                 with open("results/errors.txt", "a") as f:
                     f.write(
-                        f"error while trying to check wallets, status code = {response.status_code}\n"
+                        f"error while trying to check wallets, status code = {response.status_code}, proxy = {took_proxy}, headers = {headers}\n"
                     )
                 proxies.proxy_list.remove(took_proxy)
         sleep(0.5)
