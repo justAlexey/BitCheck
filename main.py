@@ -32,6 +32,14 @@ parser.add_argument(
 )
 parser.add_argument("-d", "--discord", help="send a discord notification.")
 
+parser.add_argument(
+	"-p",
+	"--proxy-enable",
+	help="enable proxy?",
+	action="store_true",
+	default=False
+)
+
 args = parser.parse_args()
 lock = threading.Lock()
 
@@ -49,7 +57,7 @@ def makeDir():
 		os.makedirs(path)
 
 
-def main():
+def main(*args):
 	with lock:
 		cycles = 0
 		while True:
@@ -93,7 +101,7 @@ def main():
 							)
 						sleep(0.01)
 			except (TypeError, AttributeError) as e:
-				print(f"You are rate-limited please switch to a vpn/proxy or you dont have connection\nError - {e}")
+				print(f"You are rate-limited please switch to a vpn/proxy or you dont have connection\nError - {wallets}")
 				pass
 			finally:
 				cycles += 1
@@ -104,6 +112,6 @@ if __name__ == "__main__":
 	threads = args.threads
 	i = 0
 	for _ in range(threads):
-		th = threading.Thread(target=main, args=())
+		th = threading.Thread(target=main, args=args)
 		th.start()
 

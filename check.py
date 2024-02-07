@@ -1,6 +1,13 @@
+import binascii
+import hashlib
 from time import sleep
+
+import base58
 import requests
 import json
+
+import ecdsa
+
 from btcaddr import Wallet
 from time import sleep
 from fake_user_agent import user_agent
@@ -12,10 +19,22 @@ import proxies
 def generate_addresses(count):
     addresses = {}
     for i in range(count):
+        private_key = ecdsa.SigningKey.generate(curve=ecdsa.SECP256k1)
+        public_key = b'\04' + private_key.get_verifying_key().to_string()
+        ripemd160 = hashlib.new('ripemd160')
+        ripemd160.update(hashlib.sha256(public_key).digest())
+        r = b'\0' + ripemd160.digest()
+        checksum = hashlib.sha256(hashlib.sha256(r).digest()).digest()[0:4]
+        address = base58.b58encode(r + checksum)
+        addresses[address.decode()] = binascii.b2a_hex(private_key.to_string()).decode()
+
+        """
         wallet = Wallet()
         pub = wallet.address.__dict__["mainnet"].__dict__["pubaddr1"]
         prv = wallet.key.__dict__["mainnet"].__dict__["wif"]
         addresses[pub] = prv
+        """
+
     return addresses
 
 
