@@ -33,7 +33,7 @@ def check_balance_btc():
             took_proxy = random.choice(proxies.proxy_list)
             proxy = {"http": took_proxy}
             headers = {
-                "User-Agent": ua.random
+                "User-Agent": ua.getRandom
             }
             response = requests.get(url, headers, proxies=proxy)
             if response.status_code == 200:
