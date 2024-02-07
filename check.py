@@ -40,6 +40,10 @@ def check_balance_btc():
                 status_code = 200
                 response = response.json()
             else:
+                with open("results/errors.txt", "a") as f:
+                    f.write(
+                        f"error while trying to check wallets, status code = {response.status_code}\n"
+                    )
                 proxies.proxy_list.remove(took_proxy)
         sleep(0.5)
         extract = []
