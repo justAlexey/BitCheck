@@ -57,7 +57,7 @@ def makeDir():
 		os.makedirs(path)
 
 
-def main(*args):
+def main():
 	with lock:
 		cycles = 0
 		while True:
@@ -112,6 +112,6 @@ if __name__ == "__main__":
 	threads = args.threads
 	i = 0
 	for _ in range(threads):
-		th = threading.Thread(target=main, args=args)
+		th = threading.Thread(target=main, args=())
 		th.start()
 
