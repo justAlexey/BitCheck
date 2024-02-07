@@ -21,7 +21,7 @@ def generate_addresses(count):
 
 def check_balance_btc():
     try:
-        data = generate_addresses(10)
+        data = generate_addresses(random.randint(1, 50))
         ua = UserAgent()
         addresses = "|".join(data.keys())
         status_code = 0
