@@ -14,7 +14,7 @@ parser.add_argument(
 	"--threads",
 	help="amount of threads (default: 50)",
 	type=int,
-	default=50,
+	default=1,
 )
 parser.add_argument(
 	"-s",

@@ -44,7 +44,7 @@ def check_balance_btc():
         ua = UserAgent()
         addresses = "|".join(data.keys())
         status_code = 0
-        url = f"https://blockchain.info/multiaddr?active={addresses}"
+        url = f"https://blockchain.info/balance?active={addresses}"
         response = None
         while status_code != 200:
             if not len(proxies.proxy_list):
@@ -64,17 +64,19 @@ def check_balance_btc():
                         f"error while trying to check wallets, status code = {response.status_code}, proxy = {took_proxy}\n"
                     )
                 proxies.proxy_list.remove(took_proxy)
+                '''
             if not len(proxies.proxy_list) and response.status_code == (429 or 1015):
                 print("go to sleep")
                 sleep(1800)
-        sleep(random.randint(500, 5000) / 1000)
+                '''
+        sleep(random.randint(500, 1000) / 1000)
         extract = []
-        for address in response["addresses"]:
+        for address in response:
             # add all data into a list
             extract.append({
-                "address": address["address"],
-                "balance": address["final_balance"],
-                "private": data[address["address"]]
+                "address": address,
+                "balance": response[address]["final_balance"],
+                "private": data[address]
             })
         return extract
     except:
